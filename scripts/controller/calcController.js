@@ -10,19 +10,42 @@ class CalcController{
 
         this._timeEl = document.querySelector("#hora")
 
+        this.initButtonsEvents();
+
         this._currentDate;
 
         this.initialize();
     }
+
     initialize(){
        this.setDateandTime();
         
         setInterval(()=>{
             this.setDateandTime(); 
         }, 1000)
-        
-        
+    } 
 
+    addEventListenerAll(element,events,fn){
+            
+            events.split(' ').forEach(event=>{
+
+                element.addEventListener(event,fn,false);
+            });
+        }
+
+    initButtonsEvents(){
+        let buttons = document.querySelectorAll("#buttons>g , #parts> g ");
+
+        buttons.forEach((btn,index)=>{
+            this.addEventListenerAll/*Criado por nós*/(btn,"click drag ", e =>{
+                console.log(btn.className.baseVal.replace("btn-",''));
+            });
+
+            this.addEventListenerAll(btn,'mouseover mouseup mousedown', e=>{
+
+                btn.style.cursor="pointer";
+            })
+        })      
     }
 
     setDateandTime(){
